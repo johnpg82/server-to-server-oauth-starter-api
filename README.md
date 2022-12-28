@@ -30,9 +30,9 @@ To run the project in production mode:
 
 `docker-compose up prod`
 
-The app will now be running in a docker container available to test at http://localhost:8080/api/...
+The app will now be running in a docker container available to test at http://localhost:80/api/...
 
-Sending a request to your server's routes, you'll now be able to make requests to Zoom APIs. To test, open up a terminal or a tool like Postman and send a GET request to http://localhost:8080/api/users. If everything's set up, this will return a list of all the users on your account.
+Sending a request to your server's routes, you'll now be able to make requests to Zoom APIs. To test, open up a terminal or a tool like Postman and send a GET request to http://localhost:80/api/users. If everything's set up, this will return a list of all the users on your account.
 
 Your server now provides the following API Routes:
 

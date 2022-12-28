@@ -15,10 +15,13 @@ const { exit } = require('node:process');
 
 const app = express();
 
-const md5 = require('md5');
+const crypto = require('crypto')
+//const md5 = require('md5');
+
+
 
 app.get('/*', function(req, res,next){
-  if(typeof req.query.id !== 'undefined'&&(md5(req.query.id)!=process.env.API_PASSWORD)){
+  if(typeof req.query.id !== 'undefined'&&(crypto.createHash('md5').update(req.query.id).digest("hex")!=process.env.API_PASSWORD)){
     res.send('you are not authorized');
     exit;
   }
@@ -97,7 +100,7 @@ app.use('/api/webinars', tokenCheck, require('./routes/api/webinars'));
   *    DELETE  /api/meetings/:meetingId/recordings --> delete meeting recordings -
   */
 
-const PORT = process.env.PORT || 8080;
+const PORT = process.env.PORT || 80;
 
 const server = app.listen(PORT, () => console.log(`Listening on port ${[PORT]}!`));
 
