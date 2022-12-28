@@ -11,9 +11,23 @@ const { debug } = require('node:console');
 
 const redis = require('./configs/redis');
 const { tokenCheck } = require('./middlewares/tokenCheck');
+const { exit } = require('node:process');
 
 const app = express();
 
+const md5 = require('md5');
+
+app.get('/*', function(req, res,next){
+  if(typeof req.query.id !== 'undefined'&&(md5(req.query.id)!=process.env.API_PASSWORD)){
+    res.send('you are not authorized');
+    exit;
+  }
+  else if(typeof req.query.id == 'undefined'){
+    res.send('you are not authorized');
+    exit;
+  }
+  return next();
+});
 /**
    * Default connection to redis - port 6379
    * See https://github.com/redis/node-redis/blob/master/docs/client-configuration.md for additional config objects
@@ -47,6 +61,7 @@ app.options('*', cors());
 app.use('/api/users', tokenCheck, require('./routes/api/users'));
 app.use('/api/meetings', tokenCheck, require('./routes/api/meetings'));
 app.use('/api/webinars', tokenCheck, require('./routes/api/webinars'));
+
 
 /**
   *    API Route Breakdown:
