@@ -1,9 +1,16 @@
-const { createClient } = require('redis');
+const redisapi = require('redis');
 
 // Socket required for node redis <-> docker-compose connection
 
 //const Redis = createClient({ socket: { host: 'redis', port: 6379 } });
 
-const Redis = createClient({ socket: { url: process.env.REDIS_URL} });
+const Redis = redis.createClient({
+    url: process.env.REDIS_URL,
+    socket: {
+      tls: true,
+      rejectUnauthorized: false
+    }
+  });
+
 
 module.exports = Redis;
