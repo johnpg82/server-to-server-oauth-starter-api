@@ -4,7 +4,7 @@ const redisapi = require('redis');
 
 //const Redis = createClient({ socket: { host: 'redis', port: 6379 } });
 
-const Redis = redis.createClient({
+const Redis = redisapi.createClient({
     url: process.env.REDIS_URL,
     socket: {
       tls: true,
